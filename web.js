@@ -5,6 +5,7 @@ var express 	= require("express"),
 	http 		= require('http'),
 	querystring = require('querystring'),
 	story		= require('./lib/story');
+    qEngine     = require('./lib/qEngine');
 
 //var mod_lib = require(__dirname+ '/lib/lib');
 
@@ -86,6 +87,18 @@ app.get('/', function(request, response) {
 	response.render('index', {
 		title: "Storyteller 1.0"
 	});
+});
+
+app.get('/getRecommendations/:keyword', function(req, res){ 
+    console.log(req.params.keyword);
+    qEngine.processKeyToVideo(req.params.keyword,res);
+    //res.send();
+});
+
+
+app.get('/getEbooks/:keyword', function(req, res){ 
+    qEngine.processEbook(req.params.keyword,res);
+    //res.send();
 });
 
 app.post('/audio', function(req, res){ // return the url of the audio
@@ -186,40 +199,7 @@ app.get('/test_keyword_extraction', function(req, res){
     });
 });
 
-app.get('/test_keyword_to_ebooks/:keyword', function(req, res){ 
-   
-    var url = "https://www.googleapis.com/books/v1/volumes";
-    var return_url='?q='+req.params.keyword+'+inauthor:keyes&key=AIzaSyA1smezt7VfTFeoMYzaYqf4cC9hYkQ3mUs';   
-    url = url + return_url ;
-    
-    rest.get(url).on('complete', function(result) {
-            
-             if (result instanceof Error) {
-                 console.log('result fails '+ 'Error: ' + result.message);
-                 this.retry(5000);
-             } else {
-                
-                 console.log("\nresult is true");
-                 var bookJSON = JSON.parse(JSON.stringify(result)) ;
-                 var stringBook = JSON.stringify(bookJSON);             
-                 var bookArray = [];
-                 
-                 for(var i = 0; i < bookJSON.items.length; i++){  
-                     
-                         if(JSON.stringify(bookJSON.items[i].volumeInfo.imageLinks) != undefined){
-                        
-                         bookArray.push ({   
-                             'thumbnail' : bookJSON.items[i].volumeInfo.imageLinks.thumbnail,
-                             'title' :  bookJSON.items[i].volumeInfo.title,
-                             'url': bookJSON.items[i].selfLink,                   
-                         });                     
-                     }                 
-               }   
-                
-                 res.send({'Books' : bookArray});
-           }
-         });
-});
+
 
 app.get('/test_textToImages/:text',function(req, res){
   
