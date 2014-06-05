@@ -1,0 +1,16 @@
+{
+  "name": "storyteller",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.1.x",
+    "jade": "0.33.x",
+    "hbs": "2.3.x",
+    "restler": "2.0.x",
+    "async": "0.2.x",
+    "escape-html":"1.x"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
+}

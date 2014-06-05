@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="/js/main.js"></script>
+        <link href="/css/style.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <form named="frmAudio" method="post" action="/audio" >
+            Testing textarea for audio narration text : <br />
+            <textarea name="audio_query" rows="10" cols="40"> This story begins with Once Upon A Time, because the best stories do, of course. So, Once Upon A Time, and imagine if you can, a steep sided valley cluttered with giant, spiky green pine trees and thick, green grass that reaches to the top of your socks so that when you run, you have to bring your knees up high, like running through water. Wildflowers spread their sweet heady perfume along the gentle breezes and bees hum musically to themselves as they cheerily collect flower pollen. </textarea>
+            <input type="submit" value="get audio url" />
+        </form>
+    </body>
+</html>

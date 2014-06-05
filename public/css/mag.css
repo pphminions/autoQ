@@ -1,0 +1,32 @@
+.book-page {
+    border: 5px solid #FFFFFF;
+    height: 490px;
+}
+
+.page-image {
+    padding: 10px;
+    text-align: center;
+}
+
+.page-text {
+    padding: 10px;
+    text-align: center;
+}
+
+#magazine {
+    height: 500px;
+    width: 800px;
+}
+
+#storyPlayer{
+	background: #000;
+}
+
+#magazine .turn-page{ 
+	background-color:#ccc; 
+}
+
+.page-audio{
+	width: 200px;
+	height: 50px;
+}

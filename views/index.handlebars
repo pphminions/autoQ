@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <link href="/css/style.css" type="text/css" rel="stylesheet" />  
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
+        <script src="/js/rangy/rangy-core.js">
+        <script src="/js/rangy/rangy-cssclassapplier.js">
+        <script src="/js/rangy/rangy-selectionsaverestore.js">
+        <script src="/js/rangy/rangy-serializer.js">
+        <script src="/js/main.js"></script>
+        <script src="/js/storyteller.js"></script>
+        <script>
+          $( document ).ready(function() {
+          
+                $("#chk_btn").click(function(){
+                    //alert($("#input").htmlselect());
+                    $.get( "http://thawing-beach-4511.herokuapp.com/ping", function( data ) {
+                        alert(data);
+                    }).done(function() {
+                        alert( "second success" );
+                    }).fail(function() {
+                        alert( "error" );
+                    });
+                });
+                
+                //$('body').append($().story());
+                
+                $("#btn_load").click(function() {
+                
+                	var el = document.getElementById('page_iframe');
+                	var url = $("#page_url").val();
+                	if (el && url) {
+                		var l = getLocation(url);
+						el.src = "/getPage?host="+l.hostname+"&path="+l.pathname;
+					}
+					
+					
+/*					
+					var url = $("#page_url").val();
+					$.get("/getPage", { url: url}).done(function(data){
+						alert(data.content);
+						$("#page_iframe").append(data.content);
+					});
+*/					
+					
+                });
+                
+                $("#btn_sb").click(function() {
+					var iframe = document.getElementById("page_iframe");
+					var text = getIframeSelectionText(iframe);
+					
+					$().makeStory(text);
+					
+                });
+                
+
+          });
+          
+          function getIframeSelectionText(iframe) {
+			  var win = iframe.contentWindow;
+			  var doc = win.document;
+			
+			  if (win.getSelection) {
+			    return win.getSelection().toString();
+			  } else if (doc.selection && doc.selection.createRange) {
+			    return doc.selection.createRange().text;
+			  }
+			}
+			
+		function getLocation(href) {
+			    var l = document.createElement("a");
+			    l.href = href;
+			    return l;
+		}
+
+ 
+          
+		var getSelectedText = function () {
+		  var window = $('#page_iframe')[0].contentWindow.window, 
+		    selection = rangy.getSelection($('#page_iframe')[0]);
+		
+		  markerApplier = rangy.createCssClassApplier(null, {
+		    elementTagName: 'chucknorris'
+		  });
+		  markerApplier.toggleSelection(window);
+		
+		  return selection; 
+		}
+        </script>  
+    </head>
+    <body>
+        <div class="main">
+        	<div class="search-area">
+        		<input type="text" id="page_url" name="page_url" placeholder="type url you want to convert" class="page-url">
+        		<button id="btn_load" name="btn_load" class="btn ui-icon-arrowthick-1-e">GO</button>
+        		<button id="btn_sb" name="btn_sb" class="btn btn-story ui-icon-arrowthick-1-e">Story Book</button>
+        	</div>
+        	<div class='page-iframe-div'>
+        		<iframe id='page_iframe' class='page-iframe'>
+        		</iframe>
+        	</div>
+        	<div id='storyPlayer'></div>      	
+        	<div id='loadingDiv' title="loading story..." style="display:none;"><img src="/images/ajax-loader.gif" /></div>
+        </div>
+    </body>
+</html>

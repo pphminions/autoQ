@@ -1,0 +1,41 @@
+body {
+	background: #ffffff url('/images/background.jpg') no-repeat;
+}
+
+.main{
+	margin-top: 100px;
+	margin-left: 30px;
+	margin-right: 30px;	
+}
+
+.btn{
+    font-family: tahoma;
+    font-size: 14pt;
+    height: 40px;
+    vertical-align: top;
+    width: 80px;
+    margin: 5px 0;
+}
+
+.btn-story{
+	width: 120px;
+}
+
+.page-url{
+    height: 32px;
+    margin: 5px 0;
+    width: 80%;
+    font-family: tahoma;
+    font-size: 12pt;
+}
+
+.page-iframe{
+	width: 100%;
+	min-height: 500px;
+	height: 100%;
+	border: 1px solid;
+}
+
+.search-area{
+	padding: 20px 0;
+}
