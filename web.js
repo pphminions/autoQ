@@ -328,18 +328,20 @@ app.get('/getQuestion', function(req, res){
 //        res.send({});
 //    }
     
+    var script = "<script type='javascript'>function checkAnswer(){ alert('here'); }</script>";
+    
     var html = "<div>" +
           "<fieldset>" +
-            "<legend>Personalia:</legend>" +
-            "<div><input type='radio' id='aq_radios' value='0' name='question1'/><span>first name</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='1' name='question1'/><span>second name</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='2' name='question1'/><span>second name</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='3' name='question1'/><span>second name</span></div>" +
+            "<legend>Alexander died in ?</legend>" +
+            "<div><input type='radio' id='aq_radios' value='0' name='question1'/><span>Persia</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='1' name='question1'/><span>India</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='2' name='question1'/><span>Babylon</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='3' name='question1'/><span>Macedon</span></div>" +
           "</fieldset>" +
           "<div><input type='button' value='submit' onclick='checkAnswer()'></div>" +
   "</div>";
     
-    res.send(html);
+    res.send(script+html);
 });
 
 var port = process.env.PORT || 5000;
