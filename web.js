@@ -328,7 +328,7 @@ app.get('/getQuestion', function(req, res){
 //        res.send({});
 //    }
     
-    var script = "<script type='javascript'>function checkAnswer(){ alert('here'); }</script>";
+    var script = "<script type='javascript'>function checkAnswer(){ var list = document.getElementById('aq_radios'); alert(list.length); }</script>";
     
     var html = "<div>" +
           "<fieldset>" +
