@@ -287,6 +287,18 @@ app.get('/getEBooks', function(req, res){
     }
 });
 
+app.get('/getVideos', function(req, res){
+    //console.log("\n req:"+req);
+    if (req.query.keyword) {
+        qEngine.getVideos(req.query.keyword, function(content){
+                res.send(content);
+        });
+    }
+    else{
+        res.send({});
+    }
+});
+
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log("Listening on " + port);
