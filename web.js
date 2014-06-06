@@ -333,17 +333,17 @@ app.get('/getQuestion', function(req, res){
     var html = "<div>" +
           "<fieldset>" +
             "<legend>Question 1) Alexander died in ?</legend>" +
-            "<div><input type='radio' id='aq_radios' value='0' name='question1'/><span>Persia</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='1' name='question1'/><span>India</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='2' name='question1'/><span>Babylon</span></div>" +
-            "<div><input type='radio' id='aq_radios' value='3' name='question1'/><span>Macedon</span></div>" +
+            "<div><input type='radio' id='aq_radios_0' value='0' name='question1'/><span>Persia</span></div>" +
+            "<div><input type='radio' id='aq_radios_0' value='1' name='question1'/><span>India</span></div>" +
+            "<div><input type='radio' id='aq_radios_0' value='2' name='question1'/><span>Babylon</span></div>" +
+            "<div><input type='radio' id='aq_radios_0' value='3' name='question1'/><span>Macedon</span></div>" +
           "</fieldset>" +
           "<fieldset>" +
           "<legend>Question 2) Alexander was tutored by ?</legend>" +
-          "<div><input type='radio' id='aq_radios' value='0' name='question1'/><span>David Hume</span></div>" +
-          "<div><input type='radio' id='aq_radios' value='1' name='question1'/><span>Plato</span></div>" +
-          "<div><input type='radio' id='aq_radios' value='2' name='question1'/><span>Aristotle</span></div>" +
-          "<div><input type='radio' id='aq_radios' value='3' name='question1'/><span>John Rawls</span></div>" +
+          "<div><input type='radio' id='aq_radios_1' value='0' name='question2'/><span>David Hume</span></div>" +
+          "<div><input type='radio' id='aq_radios_1' value='1' name='question2'/><span>Plato</span></div>" +
+          "<div><input type='radio' id='aq_radios_1' value='2' name='question2'/><span>Aristotle</span></div>" +
+          "<div><input type='radio' id='aq_radios_1' value='3' name='question2'/><span>John Rawls</span></div>" +
         "</fieldset>" +
           "<div><input type='button' value='submit' onclick='checkAnswer()'></div>" +
   "</div>";
