@@ -132,60 +132,60 @@ app.post('/audio', function(req, res){ // return the url of the audio
     }
 });
 
-app.post('/extractKeywords', function(req, res){ // return the url of the audio
-
-    if (req.body.query != ''){
-    	var apikey = "8b705cd4e31297cf064e31fe1506bbc05f34dc71";
-    	var text = req.body.query;
-    	var outputMode = "json";
-
-    	rest.post("http://access.alchemyapi.com/calls/text/TextGetRankedKeywords",
-            	{ 
-    				data: {apikey: apikey, text: text, outputMode: outputMode},
-    			}
-        ).on( 'complete', function( result, response ) {
-        	if ( result instanceof Error ) {
-        		return;
-    	    }
-        	
-        	try {
-        		var obj = JSON.parse(JSON.stringify(result));
-        		var mostReleventKeyword = obj.keywords[0]["text"];
-        		var audioUrl;
-        		
-                var url = 'http://tts-api.com/tts.mp3?q=';
-                var return_url = '&return_url=1';
-                url = url + mostReleventKeyword + return_url;
-
-                rest.get(url).on('complete', function(audiodata) {
-                    if (result instanceof Error) {
-                        console.log('result fails '+ 'Error: ' + audiodata.message);
-                        sys.puts('Error: ' + audiodata.message);
-                        this.retry(5000); // try again after 5 sec
-                    } else {
-                        
-                        var audioJsonObj = JSON.parse(JSON.stringify(audiodata));
-                        audioUrl = JSON.stringify(audiodata);
-                        
-                        console.log(audioUrl);
-                        //Get image
-                    }
-                });        		
-        		
-        		//mod_lib.getImageJson(result);
-        		res.send( response.statusCode, JSON.stringify(result) );
-        		return;
-        	}
-        	catch (err) {
-        		res.send( 500, 'Error.......' );
-            	return;
-            }
-        });
-
-    } else {
-        res.send('Text area is empty, please try again !');
-    }
-});
+//app.post('/extractKeywords', function(req, res){ // return the url of the audio
+//
+//    if (req.body.query != ''){
+//    	var apikey = "8b705cd4e31297cf064e31fe1506bbc05f34dc71";
+//    	var text = req.body.query;
+//    	var outputMode = "json";
+//
+//    	rest.post("http://access.alchemyapi.com/calls/text/TextGetRankedKeywords",
+//            	{ 
+//    				data: {apikey: apikey, text: text, outputMode: outputMode},
+//    			}
+//        ).on( 'complete', function( result, response ) {
+//        	if ( result instanceof Error ) {
+//        		return;
+//    	    }
+//        	
+//        	try {
+//        		var obj = JSON.parse(JSON.stringify(result));
+//        		var mostReleventKeyword = obj.keywords[0]["text"];
+//        		var audioUrl;
+//        		
+//                var url = 'http://tts-api.com/tts.mp3?q=';
+//                var return_url = '&return_url=1';
+//                url = url + mostReleventKeyword + return_url;
+//
+//                rest.get(url).on('complete', function(audiodata) {
+//                    if (result instanceof Error) {
+//                        console.log('result fails '+ 'Error: ' + audiodata.message);
+//                        sys.puts('Error: ' + audiodata.message);
+//                        this.retry(5000); // try again after 5 sec
+//                    } else {
+//                        
+//                        var audioJsonObj = JSON.parse(JSON.stringify(audiodata));
+//                        audioUrl = JSON.stringify(audiodata);
+//                        
+//                        console.log(audioUrl);
+//                        //Get image
+//                    }
+//                });        		
+//        		
+//        		//mod_lib.getImageJson(result);
+//        		res.send( response.statusCode, JSON.stringify(result) );
+//        		return;
+//        	}
+//        	catch (err) {
+//        		res.send( 500, 'Error.......' );
+//            	return;
+//            }
+//        });
+//
+//    } else {
+//        res.send('Text area is empty, please try again !');
+//    }
+//});
 
 app.get('/test_audio', function(req, res){ // shows the audio text form
     res.render('test_audio', {
@@ -255,7 +255,23 @@ app.get('/extractArticle', function(req, res){
     //console.log("\n req:"+req);
     if (req.query.url) {
         qEngine.extractArticle(req.query.url, function(content){
-                res.send({"content": content});
+            qEngine.extractArticleText(content, function(text){
+                qEngine.getKeyword(text, function(keyword){
+                    console.log("================="+keyword);
+                    res.send({});
+                    
+//                    qEngine.getEBooks(keyword, function(b_content){
+//                        //res.send(content);
+//                        qEngine.getVideos(keyword, function(v_content){
+//                            res.send(b_content+v_content);
+//                        });
+//                    });
+                    
+                    
+                    //res.send({"content": keyword});
+                });
+            });
+                //res.send({"content": content});
         });
     }
     else{
@@ -264,10 +280,12 @@ app.get('/extractArticle', function(req, res){
 });
 
 app.get('/extractArticleText', function(req, res){
-    //console.log("\n req:"+req);
+    console.log("\n req:"+req);
     if (req.query.html) {
         qEngine.extractArticleText(req.query.html, function(content){
-                res.send({"content": content});
+                
+            
+            res.send({"content": content});
         });
     }
     else{
@@ -297,6 +315,31 @@ app.get('/getVideos', function(req, res){
     else{
         res.send({});
     }
+});
+
+app.get('/getQuestion', function(req, res){
+    //console.log("\n req:"+req);
+//    if (req.query.keyword) {
+//        qEngine.getVideos(req.query.keyword, function(content){
+//                res.send(content);
+//        });
+//    }
+//    else{
+//        res.send({});
+//    }
+    
+    var html = "<div>" +
+          "<fieldset>" +
+            "<legend>Personalia:</legend>" +
+            "<div><input type='radio' id='0' value='0' name='question1'/><span>first name</span></div>" +
+            "<div><input type='radio' id='1' value='1' name='question1'/><span>second name</span></div>" +
+            "<div><input type='radio' id='1' value='2' name='question1'/><span>second name</span></div>" +
+            "<div><input type='radio' id='1' value='3' name='question1'/><span>second name</span></div>" +
+          "</fieldset>" +
+          "<div><input type='button' value='submit' onclick='checkAnswer()'></div>" +
+  "</div>";
+    
+    res.send(html);
 });
 
 var port = process.env.PORT || 5000;
