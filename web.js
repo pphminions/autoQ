@@ -251,6 +251,41 @@ app.get('/getPage', function(req, res){
 	}
 });
 
+app.get('/extractArticle', function(req, res){
+    //console.log("\n req:"+req);
+    if (req.query.url) {
+        qEngine.extractArticle(req.query.url, function(content){
+                res.send({"content": content});
+        });
+    }
+    else{
+        res.send({});
+    }
+});
+
+app.get('/extractArticleText', function(req, res){
+    //console.log("\n req:"+req);
+    if (req.query.html) {
+        qEngine.extractArticleText(req.query.html, function(content){
+                res.send({"content": content});
+        });
+    }
+    else{
+        res.send({});
+    }
+});
+
+app.get('/getEBooks', function(req, res){
+    //console.log("\n req:"+req);
+    if (req.query.keyword) {
+        qEngine.getEBooks(req.query.keyword, function(content){
+                res.send(content);
+        });
+    }
+    else{
+        res.send({});
+    }
+});
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
