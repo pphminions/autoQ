@@ -331,10 +331,10 @@ app.get('/getQuestion', function(req, res){
     var html = "<div>" +
           "<fieldset>" +
             "<legend>Personalia:</legend>" +
-            "<div><input type='radio' id='0' value='0' name='question1'/><span>first name</span></div>" +
-            "<div><input type='radio' id='1' value='1' name='question1'/><span>second name</span></div>" +
-            "<div><input type='radio' id='1' value='2' name='question1'/><span>second name</span></div>" +
-            "<div><input type='radio' id='1' value='3' name='question1'/><span>second name</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='0' name='question1'/><span>first name</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='1' name='question1'/><span>second name</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='2' name='question1'/><span>second name</span></div>" +
+            "<div><input type='radio' id='aq_radios' value='3' name='question1'/><span>second name</span></div>" +
           "</fieldset>" +
           "<div><input type='button' value='submit' onclick='checkAnswer()'></div>" +
   "</div>";
