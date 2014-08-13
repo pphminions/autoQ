@@ -61,15 +61,21 @@ app.get('/extractArticle', function(req, res){
         qEngine.extractArticle(req.query.url, function(content){
 //            console.log("\nContent : "+ content.substring(0, 20));
             qEngine.extractArticleText(content, function(text){
-                console.log("\nText : " + text.substring(0, 20)); // + text);
+                //console.log("\nText : " + text.substring(0, 20)); // + text);
                 qEngine.getKeyword(text, function(keyword){
-                    qEngine.getSentencesId(keyword, text, function(id){
-                        qEngine.getSentences(id, function(sentences){
-                            qEngine.makeQuestions(sentences, function(html){
-                                res.send(html);
+//                    qEngine.getSentencesId(keyword, text, function(id){
+//                        qEngine.getSentences(id, function(sentences){
+                            text = text.substring(0, 4000);
+                            qEngine.getNamedEntites(text,function(randomData) {
+                                qEngine.makeQuestions(text, randomData, function(html){
+                                    res.send({"content":html, "keyword": keyword});
+                                });
                             });
-                        });
-                    });
+                            
+
+//                        });
+//                    });
+                            
 ////                    console.log("\n\nKeyword : "+keyword);
 ////                    res.send({});
 ////                    
@@ -81,7 +87,7 @@ app.get('/extractArticle', function(req, res){
 //////                    });
 ////                    
 ////                    
-                    res.send({"content": keyword});
+//                    res.send({"content": keyword});
                 });
 //                res.send({"content": text});
             });
